@@ -28,12 +28,10 @@ export function ConfigPanel() {
         role="dialog"
       >
         <div className="config-modal__intro">
-          <div>
-            <p className="config-modal__eyebrow">Pre-start setup</p>
-            <h1 id="config-panel-heading" className="config-modal__title">
-              Tune the tournament room before cards are in the air
-            </h1>
-          </div>
+          <p className="config-modal__eyebrow">Pre-start setup</p>
+          <h1 id="config-panel-heading" className="config-modal__title">
+            Tournament Configuration
+          </h1>
           <p className="config-modal__copy">
             Adjust the structure, buyin model, and player count now. The config
             locks automatically after the tournament starts.

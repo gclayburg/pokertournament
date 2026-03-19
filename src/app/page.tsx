@@ -53,50 +53,54 @@ function TournamentDashboard() {
       state.config.rebuyCutoffLevel,
     );
 
+  const isPreStart = state.status === "pre-start";
+
   return (
     <main className="tournament-app">
       <div className="tournament-app__backdrop" aria-hidden="true" />
-      <section className="tournament-stage">
-        <aside className="tournament-stage__side">
-          <PrizePoolPanel
-            prizePool={prizePool}
-            nextBreakMs={getNextBreakCountdownMs(state)}
-          />
-        </aside>
+      {!isPreStart && (
+        <section className="tournament-stage">
+          <aside className="tournament-stage__side">
+            <PrizePoolPanel
+              prizePool={prizePool}
+              nextBreakMs={getNextBreakCountdownMs(state)}
+            />
+          </aside>
 
-        <section className="tournament-stage__center">
-          <TimerDisplay
-            status={state.status}
-            timeRemainingMs={state.timeRemainingMs}
-          />
-          <BlindsDisplay
-            currentLevelIndex={state.currentLevelIndex}
-            levels={state.config.levels}
-          />
-          <EstimatedDuration
-            estimatedMinutesRemaining={estimatedMinutesRemaining}
-          />
+          <section className="tournament-stage__center">
+            <TimerDisplay
+              status={state.status}
+              timeRemainingMs={state.timeRemainingMs}
+            />
+            <BlindsDisplay
+              currentLevelIndex={state.currentLevelIndex}
+              levels={state.config.levels}
+            />
+            <EstimatedDuration
+              estimatedMinutesRemaining={estimatedMinutesRemaining}
+            />
+          </section>
+
+          <aside className="tournament-stage__side tournament-stage__side--right">
+            <EntriesPanel
+              totalEntries={state.totalEntries}
+              playersRemaining={state.playersRemaining}
+            />
+            <BuyinPanel
+              averageStack={averageStack}
+              buyinAmount={state.config.buyinAmount}
+              rebuyCutoffLevel={state.config.rebuyCutoffLevel}
+              rebuysAllowed={state.config.rebuysAllowed}
+              maxRebuys={state.config.maxRebuys}
+              startingStack={state.config.startingStack}
+              totalChips={totalChips}
+              rebuysOpen={rebuysOpen}
+            />
+          </aside>
         </section>
-
-        <aside className="tournament-stage__side tournament-stage__side--right">
-          <EntriesPanel
-            totalEntries={state.totalEntries}
-            playersRemaining={state.playersRemaining}
-          />
-          <BuyinPanel
-            averageStack={averageStack}
-            buyinAmount={state.config.buyinAmount}
-            rebuyCutoffLevel={state.config.rebuyCutoffLevel}
-            rebuysAllowed={state.config.rebuysAllowed}
-            maxRebuys={state.config.maxRebuys}
-            startingStack={state.config.startingStack}
-            totalChips={totalChips}
-            rebuysOpen={rebuysOpen}
-          />
-        </aside>
-      </section>
+      )}
       <ConfigPanel />
-      <ControlBar />
+      {!isPreStart && <ControlBar />}
     </main>
   );
 }

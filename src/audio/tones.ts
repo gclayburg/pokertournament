@@ -25,9 +25,7 @@ function getAudioContextConstructor(): AudioContextConstructor | null {
     return null;
   }
 
-  const candidate = window.AudioContext ?? window.webkitAudioContext;
-
-  return candidate ?? null;
+  return window.AudioContext ?? null;
 }
 
 function ensureAudioContext(): AudioContext | null {

@@ -151,14 +151,14 @@ describe("tournament flow integration", () => {
     expect(screen.getByRole("dialog")).toBeInTheDocument();
 
     updateNumberField("Number of entries", 6);
-    expect(getEntriesPanel().getAllByText("6")).toHaveLength(2);
-    expect(getEntriesPanel().getByText("Players left")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Start Tournament" }));
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     expect(getTimer().getByText("20:00")).toBeInTheDocument();
     expect(getBlinds().getByText("25 / 50")).toBeInTheDocument();
+    expect(getEntriesPanel().getAllByText("6")).toHaveLength(2);
+    expect(getEntriesPanel().getByText("Players left")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Pause" })).toBeInTheDocument();
     expect(initializeAudioAlerts).toHaveBeenCalledTimes(1);
   });
