@@ -5,7 +5,7 @@
 ## Contents
 
 - [x] **Chunk 1: Project Scaffolding & Tournament State**
-- [ ] **Chunk 2: Timer Engine**
+- [x] **Chunk 2: Timer Engine**
 - [ ] **Chunk 3: Tournament Display UI**
 - [ ] **Chunk 4: Configuration UI**
 - [ ] **Chunk 5: Admin Controls & Player Tracking**
@@ -176,7 +176,9 @@ See spec [Timer & Level Display](./2026-03-19_tournament-tracker-spec.md#11-time
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: added the timer hook in `src/hooks/useTimer.ts`, added hook coverage in `__tests__/hooks/useTimer.test.ts`, and updated this plan entry.
+- Key decisions: implemented drift correction with `Date.now()` deltas on a 100ms interval, kept warning and level-change detection in separate effects, and used `useEffectEvent` so callback consumers can register handlers without stale closures or extra interval churn.
+- Notable for finalize: the local `react-dom` install was corrupted with NUL bytes in `node_modules`, which broke hook rendering in Jest; it was repaired from the published `react-dom@19.2.4` tarball, but no tracked dependency files changed.
 
 ---
 
