@@ -1,11 +1,11 @@
 ## Poker Tournament Tracker — Web Application
 
 - **Date:** `2026-03-19T00:00:00-06:00`
-- **References:** `specs/todo/tournament-tracker.md`, `IMG_5315.jpg`
+- **References:** `specs/done-reports/tournament-tracker.md`, `specs/done-reports/IMG_5315.jpg`
 - **Supersedes:** none
 - **Plan:** `specs/2026-03-19_tournament-tracker-plan.md`
 - **Chunked:** `true`
-- **State:** `DRAFT`
+- **State:** `IMPLEMENTED`
 
 ---
 

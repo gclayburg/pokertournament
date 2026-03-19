@@ -9,4 +9,4 @@ The specs/todo directory contains raw ideas for new features and/or bug fixes.
 
 ### Spec and Bug index
 These files represent completed specifications in the specs/ directory.  This list should be updated when the specs are completed.
-<!-- Add spec entries here as they are created and implemented -->
+- [`2026-03-19_tournament-tracker-spec.md`](./2026-03-19_tournament-tracker-spec.md) - Poker tournament tracker web application with configuration, timer, controls, audio alerts, and full integration coverage.
