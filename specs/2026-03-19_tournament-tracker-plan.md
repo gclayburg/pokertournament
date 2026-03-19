@@ -4,7 +4,7 @@
 
 ## Contents
 
-- [ ] **Chunk 1: Project Scaffolding & Tournament State**
+- [x] **Chunk 1: Project Scaffolding & Tournament State**
 - [ ] **Chunk 2: Timer Engine**
 - [ ] **Chunk 3: Tournament Display UI**
 - [ ] **Chunk 4: Configuration UI**
@@ -111,7 +111,9 @@ See spec [Overview](./2026-03-19_tournament-tracker-spec.md#overview), sections 
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: normalized the Jest/Next dependency scaffold in `package.json`, regenerated `package-lock.json`, and verified the existing state/reducer/calculation files and their unit tests under `src/state/`, `src/types/`, and `__tests__/state/`.
+- Key decisions: kept the existing reducer and calculation implementations because they already matched the chunk requirements and passed the full unit suite once the dependency graph was repaired; removed the stray Jest 30 direct dependencies so the Jest 29 toolchain installs consistently.
+- Notable for finalize: there are unrelated untracked UI scaffold files in the worktree for later chunks (`src/app/*` and related setup files). They were left untouched and should not be treated as completed chunk work yet.
 
 ---
 
