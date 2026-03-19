@@ -117,6 +117,37 @@ export function ControlBar() {
               Edit Level
             </button>
           ) : null}
+
+          {state.status !== "finished" ? (
+            <button
+              className={`config-button ${state.showEvenChop ? "config-button--secondary" : "config-button--ghost"}`}
+              type="button"
+              onClick={() => {
+                dispatch({ type: "TOGGLE_EVEN_CHOP" });
+              }}
+            >
+              {state.showEvenChop ? "Hide Even Chop" : "Show Even Chop"}
+            </button>
+          ) : null}
+
+          {state.showEvenChop && state.status !== "finished" ? (
+            <label className="control-bar__inline-field">
+              <span>Remaining Players</span>
+              <input
+                aria-label="Remaining Players"
+                className="config-input config-input--inline"
+                min={1}
+                type="number"
+                value={state.evenChopPlayers}
+                onChange={(event) => {
+                  const value = Number(event.target.value);
+                  if (Number.isFinite(value) && value >= 1) {
+                    dispatch({ type: "SET_EVEN_CHOP_PLAYERS", players: value });
+                  }
+                }}
+              />
+            </label>
+          ) : null}
         </div>
       </section>
 

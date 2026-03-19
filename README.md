@@ -9,7 +9,8 @@ A single-page web app for managing No-Limit Texas Hold'em poker tournaments. Dis
 - **Countdown timer** with drift-corrected accuracy
 - **Blind structure editor** — customize levels, durations, and breaks before or during play
 - **Live tournament stats** — entries, players remaining, prize pool, average stack, estimated duration
-- **Admin controls** — start, pause, resume, skip break, override level, bust player, add rebuy
+- **Payout structure** — automatic tiered payouts based on total buy-ins, configurable tournament fee, optional even-chop display
+- **Admin controls** — start, pause, resume, skip break, override level, bust player, add rebuy, toggle even chop
 - **Audio alerts** — 1-minute warning, level change, break start/end (Web Audio API, no files needed)
 - **Responsive design** — works on mobile, tablets, and large displays
 - **No backend required** — runs entirely in the browser

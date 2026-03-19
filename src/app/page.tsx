@@ -6,13 +6,18 @@ import { ConfigPanel } from "@/components/ConfigPanel";
 import { ControlBar } from "@/components/ControlBar";
 import { EntriesPanel } from "@/components/EntriesPanel";
 import { EstimatedDuration } from "@/components/EstimatedDuration";
+import { PayoutPanel } from "@/components/PayoutPanel";
 import { PrizePoolPanel } from "@/components/PrizePoolPanel";
 import { TimerDisplay } from "@/components/TimerDisplay";
 import {
   calcAverageStack,
   calcEstimatedDuration,
+  calcEvenChop,
+  calcNetPrizePool,
+  calcPayoutAmounts,
   calcPrizePool,
   calcTotalChips,
+  getPayoutTier,
   isRebuysOpen,
 } from "@/state/calculations";
 import { TournamentProvider, useTournament } from "@/context/TournamentContext";
@@ -40,7 +45,17 @@ function getNextBreakCountdownMs(state: TournamentState) {
 
 function TournamentDashboard() {
   const { state } = useTournament();
-  const prizePool = calcPrizePool(state.totalEntries, state.config.buyinAmount);
+  const grossPrizePool = calcPrizePool(state.totalEntries, state.config.buyinAmount);
+  const netPrizePool = calcNetPrizePool(
+    state.totalEntries,
+    state.config.buyinAmount,
+    state.config.tournamentFee,
+  );
+  const payoutTier = getPayoutTier(state.totalEntries);
+  const payoutAmounts = calcPayoutAmounts(netPrizePool, payoutTier);
+  const evenChopAmounts = state.showEvenChop
+    ? calcEvenChop(netPrizePool, state.evenChopPlayers)
+    : [];
   const totalChips = calcTotalChips(state.totalEntries, state.config.startingStack);
   const averageStack = calcAverageStack(totalChips, state.playersRemaining);
   const estimatedMinutesRemaining = calcEstimatedDuration(state);
@@ -62,8 +77,15 @@ function TournamentDashboard() {
         <section className="tournament-stage">
           <aside className="tournament-stage__side">
             <PrizePoolPanel
-              prizePool={prizePool}
+              prizePool={netPrizePool}
               nextBreakMs={getNextBreakCountdownMs(state)}
+            />
+            <PayoutPanel
+              payoutAmounts={payoutAmounts}
+              placesPaid={payoutTier.placesPaid}
+              showEvenChop={state.showEvenChop}
+              evenChopAmounts={evenChopAmounts}
+              evenChopPlayers={state.evenChopPlayers}
             />
           </aside>
 

@@ -16,7 +16,8 @@ type NumericConfigField =
   | "levelDurationMinutes"
   | "breakDurationMinutes"
   | "maxRebuys"
-  | "rebuyCutoffLevel";
+  | "rebuyCutoffLevel"
+  | "tournamentFee";
 
 const FIELD_LABELS: Record<NumericConfigField, string> = {
   breakDurationMinutes: "Break duration must be 1 minute or more.",
@@ -26,6 +27,7 @@ const FIELD_LABELS: Record<NumericConfigField, string> = {
   maxRebuys: "Max rebuys cannot be negative.",
   rebuyCutoffLevel: "Rebuy cutoff level must be at least 1.",
   startingStack: "Starting stack cannot be negative.",
+  tournamentFee: "Tournament fee cannot be negative.",
 };
 
 function validateField(name: NumericConfigField, value: number) {
@@ -120,6 +122,25 @@ export function TournamentSettingsForm({
           {errors.buyinAmount ? (
             <span className="config-error" role="alert">
               {errors.buyinAmount}
+            </span>
+          ) : null}
+        </label>
+
+        <label className="config-field">
+          <span>Tournament fee ($)</span>
+          <input
+            aria-label="Tournament fee ($)"
+            className="config-input"
+            min={0}
+            type="number"
+            value={config.tournamentFee}
+            onChange={(event) => {
+              updateNumberField("tournamentFee", event.target.value);
+            }}
+          />
+          {errors.tournamentFee ? (
+            <span className="config-error" role="alert">
+              {errors.tournamentFee}
             </span>
           ) : null}
         </label>

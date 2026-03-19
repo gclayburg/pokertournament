@@ -29,6 +29,7 @@ export const DEFAULT_CONFIG: TournamentConfig = {
   maxRebuys: 20,
   rebuyCutoffLevel: 5,
   initialEntries: 8,
+  tournamentFee: 10,
 };
 
 export function createInitialTournamentState(
@@ -42,6 +43,8 @@ export function createInitialTournamentState(
     totalEntries: config.initialEntries,
     playersRemaining: config.initialEntries,
     rebuys: 0,
+    showEvenChop: false,
+    evenChopPlayers: config.initialEntries,
   };
 }
 

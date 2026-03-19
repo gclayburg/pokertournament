@@ -111,6 +111,8 @@ export function tournamentReducer(
         totalEntries: state.config.initialEntries,
         playersRemaining: state.config.initialEntries,
         rebuys: 0,
+        showEvenChop: false,
+        evenChopPlayers: state.config.initialEntries,
       };
     }
     case "PAUSE":
@@ -162,6 +164,7 @@ export function tournamentReducer(
       return {
         ...state,
         playersRemaining,
+        evenChopPlayers: playersRemaining,
         status: playersRemaining === 1 ? "finished" : state.status,
       };
     }
@@ -185,6 +188,16 @@ export function tournamentReducer(
         rebuys: state.rebuys + 1,
       };
     }
+    case "TOGGLE_EVEN_CHOP":
+      return {
+        ...state,
+        showEvenChop: !state.showEvenChop,
+      };
+    case "SET_EVEN_CHOP_PLAYERS":
+      return {
+        ...state,
+        evenChopPlayers: Math.max(1, action.players),
+      };
     case "UPDATE_CONFIG":
       if (state.status !== "pre-start") {
         return state;
@@ -198,6 +211,8 @@ export function tournamentReducer(
         rebuys: 0,
         currentLevelIndex: 0,
         timeRemainingMs: 0,
+        showEvenChop: false,
+        evenChopPlayers: action.config.initialEntries,
       };
     default:
       return state;

@@ -41,6 +41,10 @@ function getBuyinPanel() {
   return within(screen.getByLabelText("Buyin and reentry"));
 }
 
+function getPayoutPanel() {
+  return within(screen.getByLabelText("Payout structure"));
+}
+
 function updateNumberField(label: string, value: number) {
   fireEvent.change(screen.getByLabelText(label), {
     target: { value: String(value) },
@@ -107,7 +111,7 @@ describe("tournament flow integration", () => {
     fireEvent.click(screen.getByRole("button", { name: "Add Rebuy" }));
 
     expect(getEntriesPanel().getByText("5")).toBeInTheDocument();
-    expect(getPrizePoolPanel().getByText("$200.00")).toBeInTheDocument();
+    expect(getPrizePoolPanel().getByText("$190.00")).toBeInTheDocument();
     expect(getBuyinPanel().getByText("50,000")).toBeInTheDocument();
     expect(getBuyinPanel().getByText("16,667")).toBeInTheDocument();
 
@@ -211,6 +215,63 @@ describe("tournament flow integration", () => {
     expect(getBlinds().getByText("Level 3")).toBeInTheDocument();
   });
 
+  test("payout_structure_updates_with_rebuys", () => {
+    // 8 entries at $40, fee $10 → net $310, tier 7-12 → 2 places: 65%/35%
+    startFastTournament(8);
+
+    expect(getPayoutPanel().getByText("Payouts (2 places)")).toBeInTheDocument();
+    // 65% of 310 = 201.5 → floor 201, 35% of 310 = 108.5 → floor 108, remainder 1 → 1st gets 202
+    expect(getPayoutPanel().getByText("$202.00")).toBeInTheDocument();
+    expect(getPayoutPanel().getByText("$108.00")).toBeInTheDocument();
+
+    // Add 5 rebuys to cross into 13-19 tier (3 places)
+    for (let i = 0; i < 5; i++) {
+      fireEvent.click(screen.getByRole("button", { name: "Add Rebuy" }));
+    }
+
+    // 13 entries × $40 - $10 = $510, tier 13-19 → 3 places: 50%/30%/20%
+    expect(getPayoutPanel().getByText("Payouts (3 places)")).toBeInTheDocument();
+    expect(getPayoutPanel().getByText("$255.00")).toBeInTheDocument();
+    expect(getPayoutPanel().getByText("$153.00")).toBeInTheDocument();
+    expect(getPayoutPanel().getByText("$102.00")).toBeInTheDocument();
+  });
+
+  test("even_chop_toggle_and_remaining_players", () => {
+    startFastTournament(8);
+
+    // Even chop column is not shown by default (button exists but column header does not)
+    expect(getPayoutPanel().queryByText(/Even Chop/)).not.toBeInTheDocument();
+
+    // Toggle even chop on
+    fireEvent.click(screen.getByRole("button", { name: "Show Even Chop" }));
+
+    // 8 entries, net $310, 8 players remaining → $310/8 = $38.75 → floor $38 each, remainder $6 to 1st
+    expect(getPayoutPanel().getByText("Even Chop (8)")).toBeInTheDocument();
+
+    // Toggle off
+    fireEvent.click(screen.getByRole("button", { name: "Hide Even Chop" }));
+    expect(getPayoutPanel().queryByText(/Even Chop/)).not.toBeInTheDocument();
+  });
+
+  test("even_chop_updates_on_bust_and_admin_override", () => {
+    startFastTournament(8);
+
+    fireEvent.click(screen.getByRole("button", { name: "Show Even Chop" }));
+    expect(getPayoutPanel().getByText("Even Chop (8)")).toBeInTheDocument();
+
+    // Bust a player → remaining players drops to 7
+    fireEvent.click(screen.getByRole("button", { name: "Bust Player" }));
+    expect(getPayoutPanel().getByText("Even Chop (7)")).toBeInTheDocument();
+
+    // Admin overrides remaining players field to 5
+    fireEvent.change(screen.getByLabelText("Remaining Players"), {
+      target: { value: "5" },
+    });
+    expect(getPayoutPanel().getByText("Even Chop (5)")).toBeInTheDocument();
+    // Net $310 / 5 = $62 each — multiple cells may show $62.00
+    expect(getPayoutPanel().getAllByText("$62.00").length).toBeGreaterThanOrEqual(1);
+  });
+
   test("player_tracking_updates_and_tournament_finish", () => {
     startFastTournament();
 
@@ -220,7 +281,7 @@ describe("tournament flow integration", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Add Rebuy" }));
     expect(getEntriesPanel().getByText("5")).toBeInTheDocument();
-    expect(getPrizePoolPanel().getByText("$200.00")).toBeInTheDocument();
+    expect(getPrizePoolPanel().getByText("$190.00")).toBeInTheDocument();
     expect(getBuyinPanel().getByText("50,000")).toBeInTheDocument();
     expect(getBuyinPanel().getByText("16,667")).toBeInTheDocument();
 

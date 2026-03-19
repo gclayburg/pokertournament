@@ -18,6 +18,7 @@ export type TournamentConfig = {
   maxRebuys: number;
   rebuyCutoffLevel: number;
   initialEntries: number;
+  tournamentFee: number;
 };
 
 export type TournamentStatus =
@@ -35,6 +36,8 @@ export type TournamentState = {
   totalEntries: number;
   playersRemaining: number;
   rebuys: number;
+  showEvenChop: boolean;
+  evenChopPlayers: number;
 };
 
 export type TournamentAction =
@@ -48,4 +51,6 @@ export type TournamentAction =
   | { type: "SET_TIME"; timeRemainingMs: number }
   | { type: "BUST_PLAYER" }
   | { type: "ADD_REBUY" }
+  | { type: "TOGGLE_EVEN_CHOP" }
+  | { type: "SET_EVEN_CHOP_PLAYERS"; players: number }
   | { type: "UPDATE_CONFIG"; config: TournamentConfig };
