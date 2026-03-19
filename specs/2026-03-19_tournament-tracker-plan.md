@@ -8,7 +8,7 @@
 - [x] **Chunk 2: Timer Engine**
 - [x] **Chunk 3: Tournament Display UI**
 - [x] **Chunk 4: Configuration UI**
-- [ ] **Chunk 5: Admin Controls & Player Tracking**
+- [x] **Chunk 5: Admin Controls & Player Tracking**
 - [ ] **Chunk 6: Audio Alerts**
 - [ ] **Chunk 7: Integration & Full Tournament Flow**
 
@@ -456,7 +456,9 @@ See spec [Tournament Controls](./2026-03-19_tournament-tracker-spec.md#3-tournam
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: added the active-play admin controls in `src/components/ControlBar.tsx` and `src/components/LevelOverrideModal.tsx`, mounted the control bar from `src/app/page.tsx`, expanded the shared app styling in `src/app/globals.css`, and added coverage in `__tests__/components/ControlBar.test.tsx` and `__tests__/components/LevelOverrideModal.test.tsx`.
+- Key decisions: kept the control surface fully reducer-driven through the existing tournament context, hid `Add Rebuy` when reentry is closed instead of rendering a dead control, and limited the level-override picker to blind levels so admins jump by tournament level number rather than raw array index including breaks.
+- Notable for finalize: the level-override modal seeds its local form state from the current tournament state only when opened or when the upstream state changes, which avoids clobbering in-progress edits during local rerenders; push/CI verification was not performed in this worktree session.
 
 ---
 
