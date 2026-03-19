@@ -2,6 +2,8 @@
 
 A single-page web app for managing No-Limit Texas Hold'em poker tournaments. Displays a large countdown timer, blind levels, and tournament statistics — designed for screens ranging from phones to large TVs.
 
+![Tournament dashboard screenshot](screenshot.png)
+
 ## Features
 
 - **Countdown timer** with drift-corrected accuracy
