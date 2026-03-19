@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 
+import { useAudioAlerts } from "@/hooks/useAudioAlerts";
 import { useTimer } from "@/hooks/useTimer";
 import { createInitialTournamentState } from "@/state/defaults";
 import { tournamentReducer } from "@/state/tournamentReducer";
@@ -28,6 +29,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   );
 
   useTimer({ dispatch, state });
+  useAudioAlerts(state);
 
   return (
     <TournamentContext.Provider value={{ dispatch, state }}>

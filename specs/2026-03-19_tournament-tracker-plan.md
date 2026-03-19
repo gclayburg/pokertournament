@@ -9,7 +9,7 @@
 - [x] **Chunk 3: Tournament Display UI**
 - [x] **Chunk 4: Configuration UI**
 - [x] **Chunk 5: Admin Controls & Player Tracking**
-- [ ] **Chunk 6: Audio Alerts**
+- [x] **Chunk 6: Audio Alerts**
 - [ ] **Chunk 7: Integration & Full Tournament Flow**
 
 
@@ -536,7 +536,9 @@ See spec [Audio Alerts](./2026-03-19_tournament-tracker-spec.md#4-audio-alerts),
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: added the Web Audio wrapper in `src/audio/tones.ts`, added global alert state tracking in `src/hooks/useAudioAlerts.ts`, wired the hook into `src/context/TournamentContext.tsx`, and added coverage in `__tests__/audio/tones.test.ts` plus `__tests__/hooks/useAudioAlerts.test.ts`.
+- Key decisions: kept audio initialization lazy with one-time `click`/`keydown` bootstrapping, used a shared module-level `AudioContext` so alerts do not recreate audio nodes unnecessarily, and tracked previous timer/status values with refs to avoid duplicate warning or break tones.
+- Notable for finalize: `npm test -- --runInBand` passes with the new audio coverage; standalone `npx tsc --noEmit` could not be used for extra verification because the checked-in local TypeScript install under `node_modules` is corrupted and crashes before typechecking begins.
 
 ---
 
