@@ -10,7 +10,7 @@
 - [x] **Chunk 4: Configuration UI**
 - [x] **Chunk 5: Admin Controls & Player Tracking**
 - [x] **Chunk 6: Audio Alerts**
-- [ ] **Chunk 7: Integration & Full Tournament Flow**
+- [x] **Chunk 7: Integration & Full Tournament Flow**
 
 
 ## Chunk Detail
@@ -608,7 +608,9 @@ See spec [Test Strategy](./2026-03-19_tournament-tracker-spec.md#7-test-strategy
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: added the full-app integration suite in `__tests__/integration/tournamentFlow.test.tsx` and updated this plan entry.
+- Key decisions: rendered the real `src/app/page.tsx` instead of mocking context so the tests exercise the provider, reducer, timer hook, controls, config flow, and derived display panels together; used Jest fake timers plus mocked audio tone exports to verify lifecycle timing and alert wiring without depending on the browser Web Audio API.
+- Notable for finalize: no production wiring fixes were required because the end-to-end lifecycle already held together once exercised through the page surface; unrelated pre-existing worktree changes in `.gitignore` and the untracked `src/app/layout.tsx` were left untouched.
 
 
 ## SPEC Workflow
