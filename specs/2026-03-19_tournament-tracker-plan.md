@@ -7,7 +7,7 @@
 - [x] **Chunk 1: Project Scaffolding & Tournament State**
 - [x] **Chunk 2: Timer Engine**
 - [x] **Chunk 3: Tournament Display UI**
-- [ ] **Chunk 4: Configuration UI**
+- [x] **Chunk 4: Configuration UI**
 - [ ] **Chunk 5: Admin Controls & Player Tracking**
 - [ ] **Chunk 6: Audio Alerts**
 - [ ] **Chunk 7: Integration & Full Tournament Flow**
@@ -372,7 +372,9 @@ See spec [Tournament Configuration](./2026-03-19_tournament-tracker-spec.md#2-to
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: added the pre-start configuration components in `src/components/ConfigPanel.tsx`, `src/components/BlindStructureEditor.tsx`, and `src/components/TournamentSettingsForm.tsx`; mounted the modal from `src/app/page.tsx`; expanded modal/form styling in `src/app/globals.css`; and added component coverage in `__tests__/components/ConfigPanel.test.tsx` and `__tests__/components/BlindStructureEditor.test.tsx`.
+- Key decisions: kept all edits flowing through the existing `UPDATE_CONFIG` reducer action instead of introducing local draft state; used lightweight inline validation in the settings form to block invalid numeric updates while keeping valid changes immediate; and limited the configuration UI to the `pre-start` state so the spec lockout remains enforced by both render logic and reducer behavior.
+- Notable for finalize: the worktree still contains unrelated user changes in `.gitignore` and an untracked `src/app/layout.tsx`; they were left untouched and are not part of this chunk implementation.
 
 ---
 

@@ -2,6 +2,7 @@
 
 import { BlindsDisplay } from "@/components/BlindsDisplay";
 import { BuyinPanel } from "@/components/BuyinPanel";
+import { ConfigPanel } from "@/components/ConfigPanel";
 import { EntriesPanel } from "@/components/EntriesPanel";
 import { EstimatedDuration } from "@/components/EstimatedDuration";
 import { PrizePoolPanel } from "@/components/PrizePoolPanel";
@@ -93,6 +94,7 @@ function TournamentDashboard() {
           />
         </aside>
       </section>
+      <ConfigPanel />
     </main>
   );
 }
