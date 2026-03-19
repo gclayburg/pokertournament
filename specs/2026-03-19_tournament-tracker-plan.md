@@ -6,7 +6,7 @@
 
 - [x] **Chunk 1: Project Scaffolding & Tournament State**
 - [x] **Chunk 2: Timer Engine**
-- [ ] **Chunk 3: Tournament Display UI**
+- [x] **Chunk 3: Tournament Display UI**
 - [ ] **Chunk 4: Configuration UI**
 - [ ] **Chunk 5: Admin Controls & Player Tracking**
 - [ ] **Chunk 6: Audio Alerts**
@@ -284,7 +284,9 @@ See spec [Tournament Display](./2026-03-19_tournament-tracker-spec.md#1-tourname
 
 #### Implementation Log
 
-<!-- Filled in by the implementing agent after completing this chunk. -->
+- Files changed: replaced the stub app shell in `src/app/page.tsx`, expanded `src/app/globals.css`, added `src/context/TournamentContext.tsx`, added display components under `src/components/`, and added component coverage in `__tests__/components/`.
+- Key decisions: kept the page as a single client boundary around a `TournamentProvider`, rendered break mode using the next playable blind level to match the reference screen, and used lightweight shared formatters for clock/currency/estimate display consistency.
+- Notable for finalize: the display is intentionally read-only for this chunk; config/admin/audio flows remain unimplemented and should land in later chunks without reworking the new layout structure.
 
 ---
 
